@@ -1,0 +1,11 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #333;
+}
+
+h1 {
+    color: aliceblue;
+}
