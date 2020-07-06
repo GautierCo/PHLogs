@@ -13,6 +13,10 @@ const app = {
 
         e.preventDefault();
 
+        if(app.ws) {
+            document.querySelector('.terminal ').remove();
+        }
+
         app.ws = new WebSocket("ws:\/\/188.165.240.17:8080\/echo");
         app.terminal = new Terminal();
         app.fitAddon = new FitAddon.FitAddon();
@@ -32,8 +36,8 @@ const app = {
             });
 
             let completeLine = e.data;
-            let selectDateString = completeLine.substring(0, 31);
-            let logLine = "\x1B[1m\x1B[32m" + selectDateString + "\x1B[31m" + completeLine.slice(31);
+            let splitData = completeLine.split(' ');  
+            let logLine = "\x1B[1m\x1B[32m" + splitData[0] + "\x1B[31m" + completeLine.slice(splitData[0].length);
 
             app.result.push(completeLine + "\n");
 
@@ -64,7 +68,7 @@ const app = {
         e.preventDefault();
 
         if(app.terminal) {
-            app.terminal.writeln("close");
+            app.terminal.writeln("Close");
             app.ws.close();
         } else {
             alert('Votre terminal est déjà fermé.');
